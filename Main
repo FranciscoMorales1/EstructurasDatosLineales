@@ -1,0 +1,100 @@
+public class Main {
+    public static void main(String[] args) {
+        ListaEnlazadaGenerica<Integer> lista = new ListaEnlazadaGenerica<>();
+
+        // Insertamos algunos nodos en la lista para simular un escenario
+        lista.insertarAlFinal(3);
+        lista.insertarAlFinal(5);
+        lista.insertarAlFinal(8);
+        lista.insertarAlFinal(12);
+        lista.insertarAlFinal(7);
+        lista.insertarAlFinal(10);
+
+        // Imprimir la lista actual
+        System.out.println("Lista original:");
+        lista.imprimirLista();
+
+        // Paso 1: Sumar los datos asociados a los nodos en posiciones pares e impares
+        int sumaPares = sumarPosicionesPares(lista);
+        int sumaImpares = sumarPosicionesImpares(lista);
+
+        System.out.println("Suma de nodos en posiciones pares: " + sumaPares);
+        System.out.println("Suma de nodos en posiciones impares: " + sumaImpares);
+
+        // Paso 2 y 3: Comparar las sumas y realizar inserciones según corresponda
+        if (sumaPares != sumaImpares) {
+            // Insertar un nodo con valor 0 en posiciones pares
+            insertarEnPosicionesPares(lista, 0);
+        } else {
+            // Insertar un nodo con valor -0 (que es igual a 0) en posiciones impares
+            insertarEnPosicionesImpares(lista, 0);
+        }
+
+        // Imprimir la lista después de las inserciones
+        System.out.println("Lista después de insertar según la condición:");
+        lista.imprimirLista();
+    }
+
+    // Método para sumar los valores en las posiciones pares
+    public static int sumarPosicionesPares(ListaEnlazadaGenerica<Integer> lista) {
+        int suma = 0;
+        Nodo<Integer> actual = lista.cabeza;  // Accedemos al primer nodo
+        int posicion = 1;  // La cabeza empieza en la posición 1
+
+        while (actual != null) {
+            if (posicion % 2 == 0) {  // Verificar si la posición es par
+                suma += actual.getDato();
+            }
+            actual = actual.getSiguiente();
+            posicion++;
+        }
+        return suma;
+    }
+
+    // Método para sumar los valores en las posiciones impares
+    public static int sumarPosicionesImpares(ListaEnlazadaGenerica<Integer> lista) {
+        int suma = 0;
+        Nodo<Integer> actual = lista.cabeza;
+        int posicion = 1;
+
+        while (actual != null) {
+            if (posicion % 2 != 0) {  // Verificar si la posición es impar
+                suma += actual.getDato();
+            }
+            actual = actual.getSiguiente();
+            posicion++;
+        }
+        return suma;
+    }
+
+    // Método para insertar el valor en todas las posiciones pares
+    public static void insertarEnPosicionesPares(ListaEnlazadaGenerica<Integer> lista, int valor) {
+        Nodo<Integer> actual = lista.cabeza;
+        int posicion = 1;
+
+        while (actual != null) {
+            if (posicion % 2 == 0) {
+                lista.insertarEnPosicion(valor, posicion);
+            }
+            actual = actual.getSiguiente();
+            posicion++;
+        }
+    }
+
+    // Método para insertar el valor en todas las posiciones impares
+    public static void insertarEnPosicionesImpares(ListaEnlazadaGenerica<Integer> lista, int valor) {
+        Nodo<Integer> actual = lista.cabeza;
+        int posicion = 1;
+
+        while (actual != null) {
+            if (posicion % 2 != 0) {
+                lista.insertarEnPosicion(valor, posicion);
+            }
+            actual = actual.getSiguiente();
+            posicion++;
+        }
+    }
+}
+
+    
+
